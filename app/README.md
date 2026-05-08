@@ -14,3 +14,12 @@ npm run dev
 Ouvrir ensuite [http://localhost:3000](http://localhost:3000).
 
 La table `todos` est créée automatiquement au premier chargement de la page.
+
+## Déploiement Coolify
+
+Si Nixpacks ne détecte pas l'application, utiliser le `Dockerfile` fourni :
+
+- Build Pack : `Dockerfile`
+- Port exposé : `3000`
+- Variable d'environnement runtime : `DATABASE_URL`
+- Start command : laisser vide, le `Dockerfile` lance `npm run start`
