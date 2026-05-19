@@ -1,11 +1,11 @@
 import { unstable_noStore as noStore } from "next/cache";
-import { ensureSchema, pool, type Todo, type TodoStatus } from "@/lib/db";
+import { ensureSchema, getPool, type Todo, type TodoStatus } from "@/lib/db";
 
 export async function getTodos(): Promise<Todo[]> {
   noStore();
   await ensureSchema();
 
-  const result = await pool.query<Todo>(`
+  const result = await getPool().query<Todo>(`
     SELECT id, title, description, status, created_at
     FROM todos
     ORDER BY
@@ -18,7 +18,7 @@ export async function getTodos(): Promise<Todo[]> {
 
 export async function createTodo(title: string, description: string | null) {
   await ensureSchema();
-  await pool.query(
+  await getPool().query(
     `
       INSERT INTO todos (title, description)
       VALUES ($1, $2)
@@ -29,7 +29,7 @@ export async function createTodo(title: string, description: string | null) {
 
 export async function updateTodoStatus(id: number, status: TodoStatus) {
   await ensureSchema();
-  await pool.query(
+  await getPool().query(
     `
       UPDATE todos
       SET status = $2
@@ -41,7 +41,7 @@ export async function updateTodoStatus(id: number, status: TodoStatus) {
 
 export async function deleteTodo(id: number) {
   await ensureSchema();
-  await pool.query(
+  await getPool().query(
     `
       DELETE FROM todos
       WHERE id = $1

@@ -2,6 +2,8 @@ import { deleteTodoAction, setTodoStatusAction } from "@/app/actions";
 import { AddTodoModal } from "@/app/components/add-todo-modal";
 import { getTodos } from "@/lib/todos";
 
+export const dynamic = "force-dynamic";
+
 const statusLabels = {
   A_FAIRE: "A FAIRE",
   FAITE: "FAITE",
